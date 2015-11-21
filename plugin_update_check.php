@@ -32,6 +32,8 @@ class PluginUpdateChecker_2_0 {
     public $throttleRedundantChecks = false; //Check less often if we already know that an update is available.
     public $throttledCheckPeriod = 72;
 
+    public $purchaseCode = false;
+
     private $cronHook = null;
     private $debugBarPlugin = null;
     private $cachedInstalledVersion = null;
@@ -198,6 +200,9 @@ class PluginUpdateChecker_2_0 {
         //Query args to append to the URL. Plugins can add their own by using a filter callback (see addQueryArgFilter()).
         $installedVersion = $this->getInstalledVersion();
         $queryArgs['installed_version'] = ($installedVersion !== null) ? $installedVersion : '';
+        if($this->purchaseCode) {
+            $queryArgs['code'] = $this->purchaseCode;
+        }
         $queryArgs = apply_filters('puc_request_info_query_args-'.$this->slug, $queryArgs);
 
         //Various options for the wp_remote_get() call. Plugins can filter these, too.
@@ -275,15 +280,15 @@ class PluginUpdateChecker_2_0 {
             return $pluginHeader['Version'];
         } else {
             //This can happen if the filename points to something that is not a plugin.
-            if ( $this->debugMode ) {
-                trigger_error(
-                    sprintf(
-                        "Can't to read the Version header for '%s'. The filename is incorrect or is not a plugin.",
-                        $this->pluginFile
-                    ),
-                    E_USER_WARNING
-                );
-            }
+            // if ( $this->debugMode ) {
+            //     trigger_error(
+            //         sprintf(
+            //             "Can't to read the Version header for '%s'. The filename is incorrect or is not a plugin.",
+            //             $this->pluginFile
+            //         ),
+            //         E_USER_WARNING
+            //     );
+            // }
             return null;
         }
     }
@@ -296,15 +301,15 @@ class PluginUpdateChecker_2_0 {
     protected function getPluginHeader() {
         if ( !is_file($this->pluginAbsolutePath) ) {
             //This can happen if the plugin filename is wrong.
-            if ( $this->debugMode ) {
-                trigger_error(
-                    sprintf(
-                        "Can't to read the plugin header for '%s'. The file does not exist.",
-                        $this->pluginFile
-                    ),
-                    E_USER_WARNING
-                );
-            }
+            // if ( $this->debugMode ) {
+            //     trigger_error(
+            //         sprintf(
+            //             "Can't to read the plugin header for '%s'. The file does not exist.",
+            //             $this->pluginFile
+            //         ),
+            //         E_USER_WARNING
+            //     );
+            // }
             return array();
         }
 
@@ -845,10 +850,10 @@ class PluginUpdateChecker_2_0 {
      * Initialize the update checker Debug Bar plugin/add-on thingy.
      */
     public function initDebugBarPanel() {
-        if ( class_exists('Debug_Bar') ) {
-            require_once dirname(__FILE__) . '/debug-bar-plugin.php';
-            $this->debugBarPlugin = new PucDebugBarPlugin($this);
-        }
+        // if ( class_exists('Debug_Bar') ) {
+        //     require_once dirname(__FILE__) . '/debug-bar-plugin.php';
+        //     $this->debugBarPlugin = new PucDebugBarPlugin($this);
+        // }
     }
 }
 

@@ -201,7 +201,7 @@ class PluginUpdateChecker_2_0 {
         $installedVersion = $this->getInstalledVersion();
         $queryArgs['installed_version'] = ($installedVersion !== null) ? $installedVersion : '';
         if($this->purchaseCode) {
-            $queryArgs['code'] = $this->purchaseCode;
+            $queryArgs['code'] = urlencode($this->purchaseCode);
         }
         $queryArgs = apply_filters('puc_request_info_query_args-'.$this->slug, $queryArgs);
 

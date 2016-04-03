@@ -32,7 +32,9 @@ class PluginUpdateChecker_2_0 {
     public $throttleRedundantChecks = false; //Check less often if we already know that an update is available.
     public $throttledCheckPeriod = 72;
 
+    // Kernl Custom.
     public $purchaseCode = false;
+    public $remoteGetTimeout = 10;
 
     private $cronHook = null;
     private $debugBarPlugin = null;
@@ -207,7 +209,7 @@ class PluginUpdateChecker_2_0 {
 
         //Various options for the wp_remote_get() call. Plugins can filter these, too.
         $options = array(
-            'timeout' => 10, //seconds
+            'timeout' => $this->remoteGetTimeout, //seconds
             'headers' => array(
                 'Accept' => 'application/json'
             ),

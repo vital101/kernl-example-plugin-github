@@ -3,7 +3,7 @@
  * Plugin Name: Kernl Example Plugin GitHub
  * Plugin URI: https://kernl.us
  * Description: The Kernl Plugin for testing GitHub Testing
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Jack Slingerland
  * Author URI: http://re-cycledair.com
  */
@@ -16,4 +16,5 @@ $MyUpdateChecker = new PluginUpdateChecker_2_0 (
     'kernl-example-plugin-github',
     1
 );
+$MyUpdateChecker->remoteGetTimeout = 7;
 ?>

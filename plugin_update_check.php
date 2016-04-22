@@ -233,6 +233,8 @@ class PluginUpdateChecker_2_0 {
             $pluginInfo = PluginInfo_2_0::fromJson($result['body'], $this->debugMode);
             $pluginInfo->filename = $this->pluginFile;
             $pluginInfo->slug = $this->slug;
+        } else if (isset($result['response']) && isset($result['response']['code']) && ($result['response']['code'] == 401)) {
+            add_action( 'admin_notices', array($this, 'purchase_code_invalid_notice'));
         } else if ( $this->debugMode ) {
             $message = sprintf("The URL %s does not point to a valid plugin metadata file. ", $url);
             if ( is_wp_error($result) ) {
@@ -247,6 +249,17 @@ class PluginUpdateChecker_2_0 {
 
         $pluginInfo = apply_filters('puc_request_info_result-'.$this->slug, $pluginInfo, $result);
         return $pluginInfo;
+    }
+
+    public function purchase_code_invalid_notice() {
+    ?>
+        <div class="notice notice-error">
+            <p>
+                <strong><?=$this->getPluginHeader()['Name']?>:  </strong>
+                Your purchase code is invalid.  Please make sure that you have entered a valid purchase code to ensure that you receive updates.
+            </p>
+        </div>
+    <?php
     }
 
     /**

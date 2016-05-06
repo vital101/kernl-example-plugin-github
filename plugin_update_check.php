@@ -252,10 +252,15 @@ class PluginUpdateChecker_2_0 {
     }
 
     public function purchase_code_invalid_notice() {
+        $pluginHeader = $this->getPluginHeader();
+        $pluginName = "";
+        if(isset($pluginHeader['Name'])) {
+            $pluginName = $pluginHeader['Name'];
+        }
     ?>
         <div class="notice notice-error">
             <p>
-                <strong><?=$this->getPluginHeader()['Name']?>:  </strong>
+                <strong><? echo $pluginName; ?>:  </strong>
                 Your purchase code is invalid.  Please make sure that you have entered a valid purchase code to ensure that you receive updates.
             </p>
         </div>

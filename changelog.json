@@ -3,5 +3,11 @@
     "1.3.1": "<ul><li>Adding changelog functionality.</li><li>Adding documentation.</li></ul>",
     "1.3.2": "<ul><li>Bumping.</li></ul>",
     "1.3.3": "<ul><li>Version bump.</li></ul>",
-    "1.3.4": "<ul><li>Version bump.</li></ul>"
+    "1.3.4": "<ul><li>Version bump.</li></ul>",
+    "2.0.0": {
+        "description": "<ul><li>Version bump.</li><li>Tests new changelog format.</li></ul>",
+        "requires": "4.7.0",
+        "tested": "4.7.3",
+        "update_notice": "Tests new changelog fields."
+    }
 }

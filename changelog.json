@@ -11,5 +11,6 @@
         "upgrade_notice": "Tests new changelog fields."
     },
     "2.0.1": "<ul><li>Testing out new kernl endpoint.</li></ul>",
-    "2.0.2": "<ul><li>Testing out new kernl endpoint again.</li></ul>"
+    "2.0.2": "<ul><li>Testing out new kernl endpoint again.</li></ul>",
+    "2.0.3": "<ul><li>Testing out new kernl endpoint again.</li></ul>"
 }

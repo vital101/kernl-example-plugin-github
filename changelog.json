@@ -9,5 +9,6 @@
         "requires": "4.7.0",
         "tested": "4.7.3",
         "upgrade_notice": "Tests new changelog fields."
-    }
+    },
+    "2.0.1": "<ul><li>Testing out new kernl endpoint.</li></ul>"
 }

@@ -1,4 +1,4 @@
 folder-to-exclude
-folder-to-exclude/a.txt
+folder-with-a-file-excluded/a.txt
 .gitignore
 .kernlignore

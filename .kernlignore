@@ -1,3 +1,4 @@
-build
-tmp
-myfile.txt
+folder-to-exclude
+folder-to-exclude/a.txt
+.gitignore
+.kernlignore

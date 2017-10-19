@@ -33,7 +33,7 @@ class PluginUpdateChecker_2_0 {
     public $throttledCheckPeriod = 72;
 
     // Kernl Custom.
-    public $purchaseCode = false;
+    public $license = false;
     public $remoteGetTimeout = 10;
 
     private $cronHook = null;
@@ -50,12 +50,13 @@ class PluginUpdateChecker_2_0 {
      * @param string $optionName Where to store book-keeping info about update checks. Defaults to 'external_updates-$slug'.
      * @param string $muPluginFile Optional. The plugin filename relative to the mu-plugins directory.
      */
-    public function __construct($metadataUrl, $pluginFile, $slug = '', $checkPeriod = 12, $optionName = '', $muPluginFile = ''){
+    public function __construct($metadataUrl, $pluginFile, $slug = '', $checkPeriod = 12, $pluginName='', $optionName = '', $muPluginFile = ''){
         $this->metadataUrl = $metadataUrl;
         $this->pluginAbsolutePath = $pluginFile;
         $this->pluginFile = plugin_basename($this->pluginAbsolutePath);
         $this->muPluginFile = $muPluginFile;
         $this->checkPeriod = $checkPeriod;
+        $this->pluginName = $pluginName;
         $this->slug = $slug;
         $this->optionName = $optionName;
         $this->debugMode = defined('WP_DEBUG') && WP_DEBUG;
@@ -202,7 +203,7 @@ class PluginUpdateChecker_2_0 {
         //Query args to append to the URL. Plugins can add their own by using a filter callback (see addQueryArgFilter()).
         $installedVersion = $this->getInstalledVersion();
         $queryArgs['installed_version'] = ($installedVersion !== null) ? $installedVersion : '';
-        if($this->purchaseCode) { $queryArgs['code'] = urlencode($this->purchaseCode); }
+        if($this->license) { $queryArgs['license'] = urlencode($this->license); }
         try {
             $urlParts = parse_url(get_site_url());
             $domain = $urlParts['host'];
@@ -238,7 +239,7 @@ class PluginUpdateChecker_2_0 {
             $pluginInfo = PluginInfo_2_0::fromJson($result['body'], $this->debugMode);
             $pluginInfo->filename = $this->pluginFile;
             $pluginInfo->slug = $this->slug;
-        } else if (isset($result['response']) && isset($result['response']['code']) && ($result['response']['code'] == 401)) {
+        } else if (!is_wp_error($result) && isset($result['response']) && isset($result['response']['code']) && ($result['response']['code'] == 401)) {
             add_action( 'admin_notices', array($this, 'purchase_code_invalid_notice'));
         } else if ( $this->debugMode ) {
             $message = sprintf("The URL %s does not point to a valid plugin metadata file. ", $url);
@@ -261,6 +262,9 @@ class PluginUpdateChecker_2_0 {
         $pluginName = "";
         if(isset($pluginHeader['Name'])) {
             $pluginName = $pluginHeader['Name'];
+        }
+        if($this->pluginName != '') {
+            $pluginName = $this->pluginName;
         }
     ?>
         <div class="notice notice-error">
@@ -1032,8 +1036,9 @@ class PluginUpdate_2_0 {
     public $download_url;
     public $upgrade_notice;
     public $filename; //Plugin filename relative to the plugins directory.
+    public $tested;
 
-    private static $fields = array('id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'filename');
+    private static $fields = array('id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'filename', 'tested');
 
     /**
      * Create a new instance of PluginUpdate from its JSON-encoded representation.
@@ -1119,6 +1124,7 @@ class PluginUpdate_2_0 {
         $update->url = $this->homepage;
         $update->package = $this->download_url;
         $update->plugin = $this->filename;
+        $update->tested = $this->tested;
 
         if ( !empty($this->upgrade_notice) ){
             $update->upgrade_notice = $this->upgrade_notice;

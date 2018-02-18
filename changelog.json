@@ -14,5 +14,6 @@
     "2.0.9": "<ul><li>BUMP</li></ul>",
     "2.1.0": "<ul><li>Bumpity Bump</li></ul>",
     "2.2.0": "<ul><li>Adding new plugin_update_checker that works with Kernl license management.</li></ul>",
-    "2.2.1": "<ul><li>Checking auto-update functionality.</li></ul>"
+    "2.2.1": "<ul><li>Checking auto-update functionality.</li></ul>",
+    "2.2.4": "<ul><li>Bump.</li></ul>"
 }

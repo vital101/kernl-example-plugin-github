@@ -35,6 +35,7 @@ class PluginUpdateChecker_2_0 {
     // Kernl Custom.
     public $license = false;
     public $remoteGetTimeout = 10;
+    public $collectAnalytics = true;
 
     private $cronHook = null;
     private $debugBarPlugin = null;
@@ -204,13 +205,30 @@ class PluginUpdateChecker_2_0 {
         $installedVersion = $this->getInstalledVersion();
         $queryArgs['installed_version'] = ($installedVersion !== null) ? $installedVersion : '';
         if($this->license) { $queryArgs['license'] = urlencode($this->license); }
+
         try {
             $urlParts = parse_url(get_site_url());
             $domain = $urlParts['host'];
         } catch(Exception $err) {
             $domain = '';
         }
+
+        try {
+            $phpVersion = phpversion();
+        } catch(Exception $err) {
+            $phpVersion = '';
+        }
+
+        try {
+            $language = get_bloginfo('language');
+        } catch(Exception $err) {
+            $language = '';
+        }
+
         $queryArgs['domain'] = urlencode($domain);
+        $queryArgs['collectAnalytics'] = $this->collectAnalytics;
+        $queryArgs['phpVersion'] = $phpVersion;
+        $queryArgs['language'] = $language;
         $queryArgs = apply_filters('puc_request_info_query_args-'.$this->slug, $queryArgs);
 
         //Various options for the wp_remote_get() call. Plugins can filter these, too.

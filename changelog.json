@@ -6,14 +6,9 @@
         "tested": "4.7.3",
         "upgrade_notice": "Tests new changelog fields."
     },
-    "2.0.1": "<ul><li>Testing out new kernl endpoint.</li></ul>",
-    "2.0.2": "<ul><li>Testing out new kernl endpoint again.</li></ul>",
-    "2.0.3": "<ul><li>Testing out new kernl endpoint again.</li></ul>",
-    "2.0.4": "<ul><li>Testing out new kernl endpoint again.</li></ul>",
-    "2.0.7": "<ul><li>Testing new logo</li></ul>",
-    "2.0.9": "<ul><li>BUMP</li></ul>",
     "2.1.0": "<ul><li>Bumpity Bump</li></ul>",
     "2.2.0": "<ul><li>Adding new plugin_update_checker that works with Kernl license management.</li></ul>",
     "2.2.1": "<ul><li>Checking auto-update functionality.</li></ul>",
-    "2.2.4": "<ul><li>Bump.</li></ul>"
+    "2.2.4": "<ul><li>Bump.</li></ul>",
+    "2.3.0": "<ul><li>Updating update check file.</li><ul>"
 }

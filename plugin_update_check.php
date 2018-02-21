@@ -227,8 +227,8 @@ class PluginUpdateChecker_2_0 {
 
         $queryArgs['domain'] = urlencode($domain);
         $queryArgs['collectAnalytics'] = $this->collectAnalytics;
-        $queryArgs['phpVersion'] = $phpVersion;
-        $queryArgs['language'] = $language;
+        $queryArgs['phpVersion'] = urlencode($phpVersion);
+        $queryArgs['language'] = urlencode($language);
         $queryArgs = apply_filters('puc_request_info_query_args-'.$this->slug, $queryArgs);
 
         //Various options for the wp_remote_get() call. Plugins can filter these, too.

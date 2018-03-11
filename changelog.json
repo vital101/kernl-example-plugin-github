@@ -12,5 +12,6 @@
     "2.2.4": "<ul><li>Bump.</li></ul>",
     "2.3.0": "<ul><li>Updating update check file.</li><ul>",
     "2.3.1": "<ul><li>Updating update check file.</li><ul>",
-    "2.3.2": "<ul><li>Update check now supports icons.</li><ul>"
+    "2.3.2": "<ul><li>Update check now supports icons.</li><ul>",
+    "2.3.3": "<ul><li>Testing support for update icon.</li><ul>"
 }

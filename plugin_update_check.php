@@ -933,6 +933,7 @@ class PluginInfo_2_0 {
     public $requires;
     public $tested;
     public $upgrade_notice;
+    public $icons;
 
     public $rating;
     public $num_ratings;
@@ -996,7 +997,7 @@ class PluginInfo_2_0 {
         //as those returned by the native WordPress.org API. These can be assigned directly.
         $sameFormat = array(
             'name', 'slug', 'version', 'requires', 'tested', 'rating', 'upgrade_notice',
-            'num_ratings', 'downloaded', 'homepage', 'last_updated',
+            'num_ratings', 'downloaded', 'homepage', 'last_updated'
         );
         foreach($sameFormat as $field){
             if ( isset($this->$field) ) {
@@ -1008,6 +1009,10 @@ class PluginInfo_2_0 {
 
         //Other fields need to be renamed and/or transformed.
         $info->download_link = $this->download_url;
+
+        if ($this->icons) {
+            $info->icons = json_decode(json_encode($this->icons), true);
+        }
 
         if ( !empty($this->author_homepage) ){
             $info->author = sprintf('<a href="%s">%s</a>', $this->author_homepage, $this->author);
@@ -1053,10 +1058,11 @@ class PluginUpdate_2_0 {
     public $homepage;
     public $download_url;
     public $upgrade_notice;
+    public $icons;
     public $filename; //Plugin filename relative to the plugins directory.
     public $tested;
 
-    private static $fields = array('id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'filename', 'tested');
+    private static $fields = array('id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'icons','filename', 'tested');
 
     /**
      * Create a new instance of PluginUpdate from its JSON-encoded representation.
@@ -1146,6 +1152,10 @@ class PluginUpdate_2_0 {
 
         if ( !empty($this->upgrade_notice) ){
             $update->upgrade_notice = $this->upgrade_notice;
+        }
+
+        if ( !empty($this->icons) ) {
+            $update->icons = json_decode(json_encode($this->icons), true);
         }
 
         return $update;

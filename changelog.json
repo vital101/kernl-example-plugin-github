@@ -11,5 +11,6 @@
     "2.2.1": "<ul><li>Checking auto-update functionality.</li></ul>",
     "2.2.4": "<ul><li>Bump.</li></ul>",
     "2.3.0": "<ul><li>Updating update check file.</li><ul>",
-    "2.3.1": "<ul><li>Updating update check file.</li><ul>"
+    "2.3.1": "<ul><li>Updating update check file.</li><ul>",
+    "2.3.2": "<ul><li>Update check now supports icons.</li><ul>"
 }

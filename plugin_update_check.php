@@ -1,5 +1,12 @@
 <?php
 /**
+ * ------------------------------------
+ * Kernl Plugin Update Checker v1.1.0
+ * https://kernl.us
+ * ------------------------------------
+ *
+ * Derived from:
+ *
  * Plugin Update Checker Library 2.0.0
  * http://w-shadow.com/
  *
@@ -9,14 +16,6 @@
 
 if ( !class_exists('PluginUpdateChecker_2_0') ):
 
-/**
- * A custom plugin update checker.
- *
- * @author Janis Elsts
- * @copyright 2015
- * @version 2.0
- * @access public
- */
 class PluginUpdateChecker_2_0 {
     public $metadataUrl = ''; //The URL of the plugin's metadata file.
     public $pluginAbsolutePath = ''; //Full path of the main plugin file.
@@ -36,6 +35,7 @@ class PluginUpdateChecker_2_0 {
     public $license = false;
     public $remoteGetTimeout = 10;
     public $collectAnalytics = true;
+    public $licenseErrorMessage = "Your license is invalid.  Please make sure that you have entered a valid license or that your license has not expired.";
 
     private $cronHook = null;
     private $debugBarPlugin = null;
@@ -79,6 +79,12 @@ class PluginUpdateChecker_2_0 {
         }
 
         $this->installHooks();
+
+        // Check to see if we should display the admin notice for invalid license.
+        $pluginName = $this->getPluginName();
+        if(get_option("{$pluginName}-invalid-notice")) {
+            add_action("current_screen", array($this, "license_invalid_notice"));
+        }
     }
 
     /**
@@ -236,7 +242,7 @@ class PluginUpdateChecker_2_0 {
             'timeout' => $this->remoteGetTimeout, //seconds
             'headers' => array(
                 'Accept' => 'application/json'
-            ),
+            )
         );
         $options = apply_filters('puc_request_info_options-'.$this->slug, $options);
 
@@ -257,8 +263,11 @@ class PluginUpdateChecker_2_0 {
             $pluginInfo = PluginInfo_2_0::fromJson($result['body'], $this->debugMode);
             $pluginInfo->filename = $this->pluginFile;
             $pluginInfo->slug = $this->slug;
+            $pluginName = $this->getPluginName();
+            delete_option("{$pluginName}-invalid-notice");
         } else if (!is_wp_error($result) && isset($result['response']) && isset($result['response']['code']) && ($result['response']['code'] == 401)) {
-            add_action( 'admin_notices', array($this, 'purchase_code_invalid_notice'));
+            $pluginName = $this->getPluginName();
+            update_option("{$pluginName}-invalid-notice", "show", "yes");
         } else if ( $this->debugMode ) {
             $message = sprintf("The URL %s does not point to a valid plugin metadata file. ", $url);
             if ( is_wp_error($result) ) {
@@ -275,7 +284,7 @@ class PluginUpdateChecker_2_0 {
         return $pluginInfo;
     }
 
-    public function purchase_code_invalid_notice() {
+    public function getPluginName() {
         $pluginHeader = $this->getPluginHeader();
         $pluginName = "";
         if(isset($pluginHeader['Name'])) {
@@ -284,14 +293,23 @@ class PluginUpdateChecker_2_0 {
         if($this->pluginName != '') {
             $pluginName = $this->pluginName;
         }
+        return $pluginName;
+    }
+
+    public function license_invalid_notice() {
+        $pluginName = $this->getPluginName();
+        $whitelist_admin_pages = array( 'plugins', 'update-core' );
+        $admin_page = get_current_screen();
+        if( in_array( $admin_page->base, $whitelist_admin_pages ) ) {
     ?>
         <div class="notice notice-error">
             <p>
-                <strong><? echo $pluginName; ?>:  </strong>
-                Your purchase code is invalid.  Please make sure that you have entered a valid purchase code to ensure that you receive updates.
+                <strong><?= $pluginName; ?>:  </strong>
+                <?= $this->licenseErrorMessage; ?>
             </p>
         </div>
     <?php
+        }
     }
 
     /**

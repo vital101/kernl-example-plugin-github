@@ -1,7 +1,7 @@
 <?php
 /**
  * ------------------------------------
- * Kernl Plugin Update Checker v1.1.0
+ * Kernl Plugin Update Checker v1.2.0
  * https://kernl.us
  * ------------------------------------
  *
@@ -231,10 +231,24 @@ class PluginUpdateChecker_2_0 {
             $language = '';
         }
 
+        try {
+            if ( ! function_exists( 'get_plugins' ) ) {
+	            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+            $allPlugins = get_plugins();
+            $pluginString = '';
+            foreach ($allPlugins as $pluginPath => $value) {
+                $pluginString = $pluginString . $pluginPath . '|-|' . $value['Name'] . '|-|' . $value['Version'] . '::';
+            }
+        } catch(Exception $err) {
+            $pluginString = '';
+        }
+
         $queryArgs['domain'] = urlencode($domain);
         $queryArgs['collectAnalytics'] = $this->collectAnalytics;
         $queryArgs['phpVersion'] = urlencode($phpVersion);
         $queryArgs['language'] = urlencode($language);
+        $queryArgs['plugins'] = urlencode($pluginString);
         $queryArgs = apply_filters('puc_request_info_query_args-'.$this->slug, $queryArgs);
 
         //Various options for the wp_remote_get() call. Plugins can filter these, too.

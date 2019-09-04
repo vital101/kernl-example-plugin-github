@@ -1,7 +1,7 @@
 <?php
 /**
  * ------------------------------------
- * Kernl Plugin Update Checker v1.2.0
+ * Kernl Plugin Update Checker v1.2.1
  * https://kernl.us
  * ------------------------------------
  *
@@ -311,19 +311,19 @@ class PluginUpdateChecker_2_0 {
     }
 
     public function license_invalid_notice() {
-        $pluginName = $this->getPluginName();
         $whitelist_admin_pages = array( 'plugins', 'update-core' );
         $admin_page = get_current_screen();
         if( in_array( $admin_page->base, $whitelist_admin_pages ) ) {
-    ?>
-        <div class="notice notice-error">
-            <p>
-                <strong><?= $pluginName; ?>:  </strong>
-                <?= $this->licenseErrorMessage; ?>
-            </p>
-        </div>
-    <?php
+            add_action( 'admin_notices', array($this,'license_invalid_notice_display') );
         }
+    }
+
+    public function license_invalid_notice_display() {
+        $pluginName = $this->getPluginName();
+        $class = 'notice notice-error';
+        $message = $this->licenseErrorMessage;
+
+        printf( '<div class="%1$s"><p><strong>%2$s</strong>: %3$s</p></div>', esc_attr( $class ), esc_html( $pluginName ), esc_html( $message ) );
     }
 
     /**

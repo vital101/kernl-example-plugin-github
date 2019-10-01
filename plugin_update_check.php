@@ -1,7 +1,7 @@
 <?php
 /**
  * ------------------------------------
- * Kernl Plugin Update Checker v1.2.1
+ * Kernl Plugin Update Checker v1.2.3
  * https://kernl.us
  * ------------------------------------
  *
@@ -836,12 +836,12 @@ class PluginUpdateChecker_2_0 {
     protected function isMuPlugin() {
         static $cachedResult = null;
 
-        if ( $cachedResult === null ) {
+        if ( $cachedResult === null && file_exists(WPMU_PLUGIN_DIR) ) {
             //Convert both paths to the canonical form before comparison.
             $muPluginDir = realpath(WPMU_PLUGIN_DIR);
             $pluginPath  = realpath($this->pluginAbsolutePath);
 
-            $cachedResult = (strpos($pluginPath, $muPluginDir) === 0);
+            $cachedResult = (strpos($pluginPath, (string) $muPluginDir) === 0);
         }
 
         return $cachedResult;

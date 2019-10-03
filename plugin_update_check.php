@@ -1,7 +1,7 @@
 <?php
 /**
  * ------------------------------------
- * Kernl Plugin Update Checker v1.2.3
+ * Kernl Plugin Update Checker v1.2.4
  * https://kernl.us
  * ------------------------------------
  *
@@ -791,6 +791,11 @@ class PluginUpdateChecker_2_0 {
             && $_GET['puc_slug'] == $this->slug
             && current_user_can('update_plugins')
             && check_admin_referer('puc_check_for_updates');
+
+        $shouldCheck = apply_filters(
+           'puc_check_now-' . $this->slug,
+            $shouldCheck
+        );
 
         if ( $shouldCheck ) {
             $update = $this->checkForUpdates();

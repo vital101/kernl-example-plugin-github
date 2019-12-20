@@ -20,5 +20,6 @@
     "2.3.7": "<ul><li>plugin_update_check.php update</li><ul>",
     "2.3.8": "<ul><li>plugin_update_check.php update</li><ul>",
     "2.3.9": "<ul><li>plugin_update_check.php update</li><ul>",
-    "2.4.0": "<ul><li>plugin_update_check.php update</li><ul>"
+    "2.4.0": "<ul><li>plugin_update_check.php update</li><ul>",
+    "2.5.0": "<ul><li>Renaming base plugin file.</li><ul>"
 }

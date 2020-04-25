@@ -1,7 +1,7 @@
 <?php
 /**
  * ------------------------------------
- * Kernl Plugin Update Checker v1.2.4
+ * Kernl CDN Plugin Update Checker v1.2.5
  * https://kernl.us
  * ------------------------------------
  *
@@ -206,50 +206,19 @@ class PluginUpdateChecker_2_0 {
      * @param array $queryArgs Additional query arguments to append to the request. Optional.
      * @return PluginInfo
      */
-    public function requestInfo($queryArgs = array()){
-        //Query args to append to the URL. Plugins can add their own by using a filter callback (see addQueryArgFilter()).
-        $installedVersion = $this->getInstalledVersion();
-        $queryArgs['installed_version'] = ($installedVersion !== null) ? $installedVersion : '';
-        if($this->license) { $queryArgs['license'] = urlencode($this->license); }
-
-        try {
-            $urlParts = parse_url(get_site_url());
-            $domain = $urlParts['host'];
-        } catch(Exception $err) {
-            $domain = '';
-        }
-
-        try {
-            $phpVersion = phpversion();
-        } catch(Exception $err) {
-            $phpVersion = '';
-        }
-
-        try {
-            $language = get_bloginfo('language');
-        } catch(Exception $err) {
-            $language = '';
-        }
-
-        try {
-            if ( ! function_exists( 'get_plugins' ) ) {
-	            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    public function requestInfo($queryArgs = array(), $noPlugins = false){
+        // Only if license exists should we add it to query string
+        // If license exists, we'll attempt to send domain as well.
+        if($this->license) {
+            $queryArgs['license'] = urlencode($this->license);
+            try {
+                $urlParts = parse_url(get_site_url());
+                $domain = $urlParts['host'];
+                $queryArgs['domain'] = urlencode($domain);
+            } catch(Exception $err) {
+                $domain = '';
             }
-            $allPlugins = get_plugins();
-            $pluginString = '';
-            foreach ($allPlugins as $pluginPath => $value) {
-                $pluginString = $pluginString . $pluginPath . '|-|' . $value['Name'] . '|-|' . $value['Version'] . '::';
-            }
-        } catch(Exception $err) {
-            $pluginString = '';
         }
-
-        $queryArgs['domain'] = urlencode($domain);
-        $queryArgs['collectAnalytics'] = $this->collectAnalytics;
-        $queryArgs['phpVersion'] = urlencode($phpVersion);
-        $queryArgs['language'] = urlencode($language);
-        $queryArgs['plugins'] = urlencode($pluginString);
-        $queryArgs = apply_filters('puc_request_info_query_args-'.$this->slug, $queryArgs);
 
         //Various options for the wp_remote_get() call. Plugins can filter these, too.
         $options = array(
@@ -282,6 +251,10 @@ class PluginUpdateChecker_2_0 {
         } else if (!is_wp_error($result) && isset($result['response']) && isset($result['response']['code']) && ($result['response']['code'] == 401)) {
             $pluginName = $this->getPluginName();
             update_option("{$pluginName}-invalid-notice", "show", "yes");
+        } else if(!is_wp_error($result) && !$noPlugins && isset($result['response']) && isset($result['response']['code']) && (($result['response']['code'] == 400) || ($result['response']['code'] == 431))) {
+            // If we get HTTP 431, try the request again with no plugin analytics.
+            // But only once.
+            return $this->requestInfo(array(), true);
         } else if ( $this->debugMode ) {
             $message = sprintf("The URL %s does not point to a valid plugin metadata file. ", $url);
             if ( is_wp_error($result) ) {

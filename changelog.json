@@ -21,5 +21,11 @@
     "2.3.8": "<ul><li>plugin_update_check.php update</li><ul>",
     "2.3.9": "<ul><li>plugin_update_check.php update</li><ul>",
     "2.4.0": "<ul><li>plugin_update_check.php update</li><ul>",
-    "2.5.0": "<ul><li>Renaming base plugin file.</li><ul>"
+    "2.5.0": "<ul><li>Renaming base plugin file.</li><ul>",
+    "2.6.0": {
+        "description": "<ul><li>Experimenting with new global CDN powered by Vercel.</li></ul>",
+        "requires": "4.7.0",
+        "tested": "5.4.0",
+        "upgrade_notice": "Experimenting with new CDN."
+    }
 }

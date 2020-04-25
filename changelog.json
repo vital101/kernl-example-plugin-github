@@ -27,5 +27,6 @@
         "requires": "4.7.0",
         "tested": "5.4.0",
         "upgrade_notice": "Experimenting with new CDN."
-    }
+    },
+    "2.6.1": "<ul><li>CDN Update Test</li><ul>"
 }

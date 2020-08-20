@@ -28,5 +28,6 @@
         "tested": "5.4.0",
         "upgrade_notice": "Experimenting with new CDN."
     },
-    "2.6.1": "<ul><li>CDN Update Test</li><ul>"
+    "2.6.1": "<ul><li>CDN Update Test</li><ul>",
+    "2.7.0": "<ul><li>Upgrading to latest Kernl update checker.</li><ul>"
 }

@@ -3,7 +3,7 @@
  * Plugin Name: Kernl Example Plugin GitHub
  * Plugin URI: https://kernl.us
  * Description: The Kernl Plugin for testing GitHub Testing
- * Version: 2.6.1
+ * Version: 2.7.0
  * Author: Jack Slingerland
  * Author URI: http://re-cycledair.com
  */
@@ -11,12 +11,10 @@
 //
 // Plugin update example
 //
-require 'cdn_plugin_update_check.php';
-$MyUpdateChecker = new PluginUpdateChecker_2_0 (
-    'https://global.kernl.us/api/updates/plugin/56508ee948447e402e805290',
+require 'kernl-update-checker/kernl-update-checker.php';
+$MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+    'https://kernl.us/api/v1/updates/56508ee948447e402e805290',
     __FILE__,
-    'kernl-example-plugin-github',
-    1
+    'kernl-example-plugin-github'
 );
-$MyUpdateChecker->remoteGetTimeout = 7;
 ?>

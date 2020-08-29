@@ -659,20 +659,7 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 			return $language;
 		}
 
-		protected function getPluginInfo($noPlugins = true) {
-			//
-			// WIP -> Need to test this extensively with Fiddler
-			//        returning invalid responses.
-			//
-			//  } else if (!is_wp_error($result) && isset($result['response']) && isset($result['response']['code']) && ($result['response']['code'] == 401)) {
-            //   $pluginName = $this->getPluginName();
-			//   	update_option("{$pluginName}-invalid-notice", "show", "yes");
-			//   } else if(!is_wp_error($result) && !$noPlugins && isset($result['response']) && isset($result['response']['code']) && (($result['response']['code'] == 400) || ($result['response']['code'] == 431))) {
-			// 	// If we get HTTP 431, try the request again with no plugin analytics.
-			// 	// But only once.
-			// 	return $this->requestInfo(array(), true);
-			// }
-			//
+		protected function getPluginInfo($noPlugins = false) {
 			try {
 				if ($noPlugins) {
 					$pluginString = '';
@@ -705,9 +692,30 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 		 * @param array $queryArgs Additional query arguments.
 		 * @return array [Puc_v4p10_Metadata|null, array|WP_Error] A metadata instance and the value returned by wp_remote_get().
 		 */
-		protected function requestMetadata($metaClass, $filterRoot, $queryArgs = array()) {
+		protected function requestMetadata($metaClass, $filterRoot, $queryArgs = array(), $noPlugins = false) {
+			// Make a copy of the original queryArgs in case we need to call
+			// this function again without plugin information.
+			$originalQueryArgs = $queryArgs;
+
 			if($this->license) {
 				$queryArgs['license'] = urlencode($this->license);
+			}
+
+			$kernlAnalyticsQueryArgs = array(
+				'domain' => $this->getDomain(),
+				'collectAnalytics' => $this->collectAnalytics,
+				'phpVersion' => $this->getPhpVersion(),
+				'language' => $this->getLanguage(),
+				'plugins' => $this->getPluginInfo($noPlugins)
+			);
+
+			// Only send analytics data to Kernl if collectAnalytics
+			// is set to true. Default is true.
+			if ($this->collectAnalytics) {
+				$queryArgs = array_merge(
+					$kernlAnalyticsQueryArgs,
+					$queryArgs
+				);
 			}
 
 			//Query args to append to the URL. Plugins can add their own by using a filter callback (see addQueryArgFilter()).
@@ -715,12 +723,7 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 				array(
 					'installed_version' => strval($this->getInstalledVersion()),
 					'php' => phpversion(),
-					'locale' => get_locale(),
-					'domain' => $this->getDomain(),
-					'collectAnalytics' => $this->collectAnalytics,
-					'phpVersion' => $this->getPhpVersion(),
-					'language' => $this->getLanguage(),
-					'plugins' => $this->getPluginInfo()
+					'locale' => get_locale()
 				),
 				$queryArgs
 			);
@@ -740,9 +743,7 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 			if ( !empty($queryArgs) ){
 				$url = add_query_arg($queryArgs, $url);
 			}
-
 			$result = wp_remote_get($url, $options);
-
 			$result = apply_filters($this->getUniqueName('request_metadata_http_result'), $result, $url, $options);
 
 			//Try to parse the response
@@ -750,6 +751,16 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 			$metadata = null;
 			if ( !is_wp_error($status) ){
 				$metadata = call_user_func(array($metaClass, 'fromJson'), $result['body']);
+			} else if($this->failedDueToPlugins($result, $noPlugins)) {
+				// This case happens if the end user has too many plugins to be
+				// sent via the query string.
+				$noPlugins = true;
+				return $this->requestMetadata(
+					$metaClass,
+					$filterRoot,
+					$originalQueryArgs,
+					$noPlugins
+				);
 			} else {
 				do_action('puc_api_error', $status, $result, $url, $this->slug);
 				$this->triggerError(
@@ -762,8 +773,9 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 			return array($metadata, $result);
 		}
 
-		protected function shouldTryRequestAgainNoPlugins($result) {
-			return !is_wp_error($result) &&
+		private function failedDueToPlugins($result, $noPlugins) {
+			return
+				!is_wp_error($result) &&
 				!$noPlugins &&
 				isset($result['response']) &&
 				isset($result['response']['code']) &&

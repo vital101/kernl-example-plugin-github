@@ -684,7 +684,7 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 				$theme = wp_get_theme();
 				$name = $theme->get('Name');
 				$slug = sanitize_title($name);
-				$version = $theme->get('version');
+				$version = $theme->get('Version');
 				$theme_data = array($slug, $name, $version);
 				return implode('|-|', $theme_data);
 			} catch (Exception $err) {

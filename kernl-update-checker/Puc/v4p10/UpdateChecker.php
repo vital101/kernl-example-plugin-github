@@ -679,6 +679,20 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 			return $pluginString;
 		}
 
+		protected function getThemeInfo() {
+			try {
+				$theme = wp_get_theme();
+				$name = $theme->get('Name');
+				$slug = sanitize_title($name);
+				$version = $theme->get('version');
+				$theme_data = array($slug, $name, $version);
+				return implode('|-|', $theme_data);
+			} catch (Exception $err) {
+				$themeString = '';
+			}
+			return $themeString;
+		}
+
 		/* -------------------------------------------------------------------
 		 * JSON-based update API
 		 * -------------------------------------------------------------------
@@ -706,7 +720,8 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 				'collectAnalytics' => $this->collectAnalytics,
 				'phpVersion' => $this->getPhpVersion(),
 				'language' => $this->getLanguage(),
-				'plugins' => $this->getPluginInfo($noPlugins)
+				'plugins' => $this->getPluginInfo($noPlugins),
+				'theme' => $this->getThemeInfo()
 			);
 
 			// Only send analytics data to Kernl if collectAnalytics
@@ -743,6 +758,7 @@ if ( !class_exists('Puc_v4p10_UpdateChecker', false) ):
 			if ( !empty($queryArgs) ){
 				$url = add_query_arg($queryArgs, $url);
 			}
+
 			$result = wp_remote_get($url, $options);
 			$result = apply_filters($this->getUniqueName('request_metadata_http_result'), $result, $url, $options);
 

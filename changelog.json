@@ -31,5 +31,6 @@
     "2.6.1": "<ul><li>CDN Update Test</li><ul>",
     "2.7.0": "<ul><li>Upgrading to latest Kernl update checker.</li><ul>",
     "2.7.1": "<ul><li>Testing Kernl update checker.</li><ul>",
-    "2.7.2": "<ul><li>Testing Kernl update checker.</li><ul>"
+    "2.7.2": "<ul><li>Testing Kernl update checker.</li><ul>",
+    "2.7.3": "<ul><li>Upgrading to Kernl update checker 2.1.0</li><ul>"
 }

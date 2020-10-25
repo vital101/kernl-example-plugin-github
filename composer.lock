@@ -1,0 +1,68 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "aea1459f25425de7e1b0e9b3aa7b4314",
+    "packages": [
+        {
+            "name": "kernl/kernl-update-checker",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vital101/plugin-update-checker.git",
+                "reference": "e507502af001191c0fd0c079eb3ad564f1a28f42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vital101/plugin-update-checker/zipball/e507502af001191c0fd0c079eb3ad564f1a28f42",
+                "reference": "e507502af001191c0fd0c079eb3ad564f1a28f42",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "load-v4p10.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jack Slingerland",
+                    "email": "jack@kernl.us",
+                    "homepage": "https://kernl.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The WordPress plugin and theme update checker for https://kernl.us",
+            "homepage": "https://github.com/vital101/plugin-update-checker",
+            "keywords": [
+                "automatic updates",
+                "plugin updates",
+                "theme updates",
+                "wordpress"
+            ],
+            "support": {
+                "source": "https://github.com/vital101/plugin-update-checker/tree/2.2.0"
+            },
+            "time": "2020-10-25T18:18:56+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}

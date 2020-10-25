@@ -1,27 +1,4 @@
 {
-    "1.3.4": "<ul><li>Version bump.</li></ul>",
-    "2.0.0": {
-        "description": "<ul><li>Version bump.</li><li>Tests new changelog format.</li></ul>",
-        "requires": "4.7.0",
-        "tested": "4.7.3",
-        "upgrade_notice": "Tests new changelog fields."
-    },
-    "2.1.0": "<ul><li>Bumpity Bump</li></ul>",
-    "2.2.0": "<ul><li>Adding new plugin_update_checker that works with Kernl license management.</li></ul>",
-    "2.2.1": "<ul><li>Checking auto-update functionality.</li></ul>",
-    "2.2.4": "<ul><li>Bump.</li></ul>",
-    "2.3.0": "<ul><li>Updating update check file.</li><ul>",
-    "2.3.1": "<ul><li>Updating update check file.</li><ul>",
-    "2.3.2": "<ul><li>Update check now supports icons.</li><ul>",
-    "2.3.3": "<ul><li>Testing support for update icon.</li><ul>",
-    "2.3.4": "<ul><li>plugin_update_check updates.</li><ul>",
-    "2.3.5": "<ul><li>Bump.</li><ul>",
-    "2.3.6": "<ul><li>Bump again.</li><ul>",
-    "2.3.7": "<ul><li>plugin_update_check.php update</li><ul>",
-    "2.3.8": "<ul><li>plugin_update_check.php update</li><ul>",
-    "2.3.9": "<ul><li>plugin_update_check.php update</li><ul>",
-    "2.4.0": "<ul><li>plugin_update_check.php update</li><ul>",
-    "2.5.0": "<ul><li>Renaming base plugin file.</li><ul>",
     "2.6.0": {
         "description": "<ul><li>Experimenting with new global CDN powered by Vercel.</li></ul>",
         "requires": "4.7.0",
@@ -33,5 +10,11 @@
     "2.7.1": "<ul><li>Testing Kernl update checker.</li><ul>",
     "2.7.2": "<ul><li>Testing Kernl update checker.</li><ul>",
     "2.7.3": "<ul><li>Upgrading to Kernl update checker 2.1.0</li><ul>",
-    "2.7.4": "<ul><li>Upgrading to Kernl update checker 2.1.0</li><ul>"
+    "2.7.4": "<ul><li>Upgrading to Kernl update checker 2.1.0</li><ul>",
+    "2.8.0": {
+        "description": "<ul><li>Kernl update checker is now available for install via Composer.</li></ul>",
+        "requires": "4.7.0",
+        "tested": "5.5.1",
+        "upgrade_notice": "Update checker via Composer."
+    }
 }

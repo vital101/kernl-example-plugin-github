@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '8421f710d058f4b6b39d4ef10a91948c248fcc78',
+    'reference' => '19b3ecc5fee084bae903c4c2af3053ae07775b4f',
     'name' => '__root__',
   ),
   'versions' => 
@@ -31,16 +31,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '8421f710d058f4b6b39d4ef10a91948c248fcc78',
+      'reference' => '19b3ecc5fee084bae903c4c2af3053ae07775b4f',
     ),
     'kernl/kernl-update-checker' => 
     array (
-      'pretty_version' => '2.2.0',
-      'version' => '2.2.0.0',
+      'pretty_version' => '2.3.0',
+      'version' => '2.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e507502af001191c0fd0c079eb3ad564f1a28f42',
+      'reference' => 'ff70ed8773805a61137a0cdf8fe66268862ff2a0',
     ),
   ),
 );

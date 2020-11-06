@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "kernl/kernl-update-checker",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vital101/plugin-update-checker.git",
-                "reference": "e507502af001191c0fd0c079eb3ad564f1a28f42"
+                "reference": "ff70ed8773805a61137a0cdf8fe66268862ff2a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vital101/plugin-update-checker/zipball/e507502af001191c0fd0c079eb3ad564f1a28f42",
-                "reference": "e507502af001191c0fd0c079eb3ad564f1a28f42",
+                "url": "https://api.github.com/repos/vital101/plugin-update-checker/zipball/ff70ed8773805a61137a0cdf8fe66268862ff2a0",
+                "reference": "ff70ed8773805a61137a0cdf8fe66268862ff2a0",
                 "shasum": ""
             },
             "require": {
@@ -51,9 +51,9 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/vital101/plugin-update-checker/tree/2.2.0"
+                "source": "https://github.com/vital101/plugin-update-checker/tree/2.3.0"
             },
-            "time": "2020-10-25T18:18:56+00:00"
+            "time": "2020-11-06T00:28:24+00:00"
         }
     ],
     "packages-dev": [],

@@ -16,5 +16,11 @@
         "requires": "4.7.0",
         "tested": "5.5.1",
         "upgrade_notice": "Update checker via Composer."
+    },
+    "2.8.1": {
+        "description": "<ul><li>Upgrading to latest Kernl Update Checker v2.3.0.</li></ul>",
+        "requires": "4.7.0",
+        "tested": "5.5.1",
+        "upgrade_notice": "Upgrading to latest Kernl Update Checker"
     }
 }

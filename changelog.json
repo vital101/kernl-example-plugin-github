@@ -28,5 +28,11 @@
         "requires": "4.7.0",
         "tested": "5.5.1",
         "upgrade_notice": "Testing server side changes"
+    },
+    "2.8.3": {
+        "description": "Upgrading to latest Kernl Update Checker",
+        "requires": "4.7.0",
+        "tested": "5.5.1",
+        "upgrade_notice": "Upgrading to latest Kernl Update Checker"
     }
 }

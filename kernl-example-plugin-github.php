@@ -3,7 +3,7 @@
  * Plugin Name: Kernl Example Plugin GitHub
  * Plugin URI: https://kernl.us
  * Description: The Kernl Plugin for testing GitHub Testing
- * Version: 2.8.3
+ * Version: 2.9.0
  * Author: Jack Slingerland
  * Author URI: http://re-cycledair.com
  */

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aea1459f25425de7e1b0e9b3aa7b4314",
+    "content-hash": "bacf12833e3bec61277b1ad7c3251ef8",
     "packages": [
         {
             "name": "kernl/kernl-update-checker",
-            "version": "2.3.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vital101/plugin-update-checker.git",
-                "reference": "ff70ed8773805a61137a0cdf8fe66268862ff2a0"
+                "reference": "cd2bb86dbc90fe0ae335275b23d498b2fad0e5a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vital101/plugin-update-checker/zipball/ff70ed8773805a61137a0cdf8fe66268862ff2a0",
-                "reference": "ff70ed8773805a61137a0cdf8fe66268862ff2a0",
+                "url": "https://api.github.com/repos/vital101/plugin-update-checker/zipball/cd2bb86dbc90fe0ae335275b23d498b2fad0e5a5",
+                "reference": "cd2bb86dbc90fe0ae335275b23d498b2fad0e5a5",
                 "shasum": ""
             },
             "require": {
@@ -51,9 +51,9 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/vital101/plugin-update-checker/tree/2.3.0"
+                "source": "https://github.com/vital101/plugin-update-checker/tree/2.6.0"
             },
-            "time": "2020-11-06T00:28:24+00:00"
+            "time": "2022-01-30T13:26:04+00:00"
         }
     ],
     "packages-dev": [],
@@ -64,5 +64,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

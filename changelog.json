@@ -34,5 +34,11 @@
         "requires": "4.7.0",
         "tested": "5.5.1",
         "upgrade_notice": "Upgrading to latest Kernl Update Checker"
+    },
+    "2.9.0": {
+        "description": "Upgrading to 2.6.0 Kernl Update Checker",
+        "requires": "4.7.0",
+        "tested": "5.5.1",
+        "upgrade_notice": "Upgrading to 2.6.0 Kernl Update Checker"
     }
 }

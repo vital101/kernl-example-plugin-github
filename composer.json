@@ -1,5 +1,5 @@
 {
     "require": {
-        "kernl/kernl-update-checker": "^2.6"
+        "kernl/kernl-update-checker": "^3.0"
     }
 }

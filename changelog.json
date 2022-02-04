@@ -46,5 +46,11 @@
         "requires": "5.8.0",
         "tested": "5.9.0",
         "upgrade_notice": "Testing previous update."
+    },
+    "2.9.2": {
+        "description": "Upgrading to version 3.0.0 of Kernl Update Checker.",
+        "requires": "5.8.0",
+        "tested": "5.9.0",
+        "upgrade_notice": "Upgrading to version 3.0.0 of Kernl Update Checker."
     }
 }

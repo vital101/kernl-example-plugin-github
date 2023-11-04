@@ -58,5 +58,11 @@
         "requires": "5.8.0",
         "tested": "5.9.0",
         "upgrade_notice": "Node16 Upgrade Testing."
+    },
+    "3.0.0": {
+        "description": "Node 18 Testing.",
+        "requires": "5.8.0",
+        "tested": "5.9.0",
+        "upgrade_notice": "Node 18 Testing."
     }
 }

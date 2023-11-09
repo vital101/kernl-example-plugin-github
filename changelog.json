@@ -64,5 +64,11 @@
         "requires": "5.8.0",
         "tested": "5.9.0",
         "upgrade_notice": "Node 18 Testing."
+    },
+    "3.0.1": {
+        "description": "DigitalOcean Spaces testing.",
+        "requires": "5.8.0",
+        "tested": "5.9.0",
+        "upgrade_notice": "DigitalOcean Spaces testing."
     }
 }
